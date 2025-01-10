@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Kodnest-ReactPro-TaskBuddy/static/css/main.b999dc7e.css",
+    "main.js": "/Kodnest-ReactPro-TaskBuddy/static/js/main.5bb187bb.js",
+    "index.html": "/Kodnest-ReactPro-TaskBuddy/index.html",
+    "main.b999dc7e.css.map": "/Kodnest-ReactPro-TaskBuddy/static/css/main.b999dc7e.css.map",
+    "main.5bb187bb.js.map": "/Kodnest-ReactPro-TaskBuddy/static/js/main.5bb187bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b999dc7e.css",
+    "static/js/main.5bb187bb.js"
+  ]
+}
