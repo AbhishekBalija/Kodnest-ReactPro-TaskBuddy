@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import TaskCard from "./TaskCard";
 
@@ -6,10 +6,33 @@ const Home = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  // Load tasks from localStorage on component mount
+  useEffect(() => {
+    const savedTasks = sessionStorage.getItem("tasks");
+    if (savedTasks) {
+      try {
+        setTasks(JSON.parse(savedTasks)); // Parse JSON safely
+      } catch (error) {
+        console.error("Failed to parse tasks from localStorage:", error);
+      }
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever they change
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("tasks", JSON.stringify(tasks)); // Save tasks as JSON
+    } catch (error) {
+      console.error("Failed to save tasks to localStorage:", error);
+    }
+  }, [tasks]);
+
   const handleAddTask = () => {
     if (task.trim()) {
-      setTasks([...tasks, { text: task, status: "todo", id: Date.now() }]);
-      setTask("");
+      const newTask = { text: task, status: "todo", id: Date.now() };
+      const updatedTasks = [...tasks, newTask];
+      setTasks(updatedTasks); // Update state
+      setTask(""); // Clear input
     }
   };
 
@@ -20,15 +43,15 @@ const Home = () => {
   };
 
   const updateTaskStatus = (taskId, newStatus) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task
-      )
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, status: newStatus } : task
     );
+    setTasks(updatedTasks);
   };
 
   const deleteTask = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    const filteredTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(filteredTasks);
   };
 
   return (
